@@ -1,31 +1,17 @@
-import { useRouter } from 'next/router'
 import cx from 'classnames'
 
-import { ZapIcon, InfoIcon } from '@primer/octicons-react'
-import { Callout } from 'components/ui/Callout'
-
-import { Link } from 'components/Link'
 import { DefaultLayout } from 'components/DefaultLayout'
 import { ArticleTopper } from 'components/article/ArticleTopper'
 import { ArticleTitle } from 'components/article/ArticleTitle'
 import { useArticleContext } from 'components/context/ArticleContext'
+import { InfoIcon } from '@primer/octicons-react'
 import { useTranslation } from 'components/hooks/useTranslation'
 import { LearningTrackNav } from './LearningTrackNav'
-import { MarkdownContent } from 'components/ui/MarkdownContent'
+import { ArticleContent } from './ArticleContent'
 import { ArticleGridLayout } from './ArticleGridLayout'
-
-// Mapping of a "normal" article to it's interactive counterpart
-const interactiveAlternatives: Record<string, { href: string }> = {
-  '/actions/guides/building-and-testing-nodejs': {
-    href: '/actions/guides/building-and-testing-nodejs-or-python?langId=nodejs',
-  },
-  '/actions/guides/building-and-testing-python': {
-    href: '/actions/guides/building-and-testing-nodejs-or-python?langId=python',
-  },
-}
+import { Callout } from 'components/ui/Callout'
 
 export const ArticlePage = () => {
-  const router = useRouter()
   const {
     title,
     intro,
@@ -39,8 +25,6 @@ export const ArticlePage = () => {
     currentLearningTrack,
   } = useArticleContext()
   const { t } = useTranslation('pages')
-  const currentPath = router.asPath.split('?')[0]
-
   return (
     <DefaultLayout>
       <div className="container-xl px-3 px-md-6 my-4 my-lg-4">
@@ -64,9 +48,10 @@ export const ArticlePage = () => {
               )}
 
               {intro && (
-                <MarkdownContent className="f2 color-text-secondary mb-3" data-testid="lead">
-                  {intro}
-                </MarkdownContent>
+                <div
+                  className="lead-mktg markdown-body mb-3"
+                  dangerouslySetInnerHTML={{ __html: intro }}
+                />
               )}
 
               {permissions && (
@@ -116,45 +101,33 @@ export const ArticlePage = () => {
             </>
           }
           toc={
-            <>
-              {!!interactiveAlternatives[currentPath] && (
-                <div className="flash mb-3">
-                  <ZapIcon className="mr-2" />
-                  <Link href={interactiveAlternatives[currentPath].href}>
-                    Try the new interactive article
-                  </Link>
-                </div>
-              )}
-              {miniTocItems.length > 1 && (
-                <>
-                  <h2 id="in-this-article" className="f5 mb-2">
-                    <a className="Link--primary" href="#in-this-article">
-                      {t('miniToc')}
-                    </a>
-                  </h2>
-                  <ul className="list-style-none pl-0 f5 mb-0">
-                    {miniTocItems.map((item) => {
-                      return (
-                        <li
-                          key={item.contents}
-                          className={cx(
-                            `ml-${item.indentationLevel * 3}`,
-                            item.platform,
-                            'mb-2 lh-condensed'
-                          )}
-                          dangerouslySetInnerHTML={{ __html: item.contents }}
-                        />
-                      )
-                    })}
-                  </ul>
-                </>
-              )}
-            </>
+            miniTocItems.length > 1 && (
+              <>
+                <h2 id="in-this-article" className="f5 mb-2">
+                  <a className="Link--primary" href="#in-this-article">
+                    {t('miniToc')}
+                  </a>
+                </h2>
+                <ul className="list-style-none pl-0 f5 mb-0">
+                  {miniTocItems.map((item) => {
+                    return (
+                      <li
+                        key={item.contents}
+                        className={cx(
+                          `ml-${item.indentationLevel * 3}`,
+                          item.platform,
+                          'mb-2 lh-condensed'
+                        )}
+                        dangerouslySetInnerHTML={{ __html: item.contents }}
+                      />
+                    )
+                  })}
+                </ul>
+              </>
+            )
           }
         >
-          <div id="article-contents">
-            <MarkdownContent>{renderedPage}</MarkdownContent>
-          </div>
+          <ArticleContent>{renderedPage}</ArticleContent>
         </ArticleGridLayout>
 
         {currentLearningTrack?.trackName ? (

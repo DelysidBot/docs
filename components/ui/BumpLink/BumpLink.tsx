@@ -3,15 +3,14 @@ import cx from 'classnames'
 
 import styles from './BumpLink.module.scss'
 
-export type BumpLinkPropsT = {
+type Props = {
   children?: ReactNode
   title: ReactElement<any> | string
   href: string
   as?: ElementType<{ className?: string; href: string }>
   className?: string
 }
-
-export const BumpLink = ({ as, children, href, title, className }: BumpLinkPropsT) => {
+export const BumpLink = ({ as, children, href, title, className }: Props) => {
   const Component = as || 'a'
 
   const symbol = <span className={styles.symbol}>→</span>

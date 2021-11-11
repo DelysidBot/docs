@@ -33,7 +33,7 @@ If you don't need to work with files locally, {% data variables.product.product_
 
 - [Creating a repository](/articles/create-a-repo)
 - [Forking a repository](/articles/fork-a-repo)
-- [Managing files](/repositories/working-with-files/managing-files)
+- [Managing files](/articles/managing-files-on-github/)
 - [Being social](/articles/be-social)
 
 ## Setting up Git

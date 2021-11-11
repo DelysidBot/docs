@@ -3,7 +3,7 @@ import { TableOfContents } from 'components/landing/TableOfContents'
 import { useTocLandingContext } from 'components/context/TocLandingContext'
 import { ArticleTopper } from 'components/article/ArticleTopper'
 import { ArticleTitle } from 'components/article/ArticleTitle'
-import { MarkdownContent } from 'components/ui/MarkdownContent'
+import { ArticleContent } from 'components/article/ArticleContent'
 import { ArticleList } from 'components/landing/ArticleList'
 import { useTranslation } from 'components/hooks/useTranslation'
 import { ArticleGridLayout } from 'components/article/ArticleGridLayout'
@@ -22,7 +22,7 @@ export const TocLanding = () => {
         <ArticleGridLayout className="mt-7">
           <ArticleTitle>{title}</ArticleTitle>
 
-          <div className="f2 color-text-secondary">
+          <div className="lead-mktg">
             <p>{introPlainText}</p>
           </div>
 
@@ -55,11 +55,7 @@ export const TocLanding = () => {
               </div>
             )}
 
-            {renderedPage && (
-              <div id="article-contents">
-                <MarkdownContent>{renderedPage}</MarkdownContent>
-              </div>
-            )}
+            {renderedPage && <ArticleContent>{renderedPage}</ArticleContent>}
 
             <TableOfContents items={tocItems} variant={variant} />
           </div>

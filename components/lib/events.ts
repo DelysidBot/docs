@@ -65,17 +65,7 @@ type SendEventProps = {
   preference_value?: string
 }
 
-function getMetaContent(name: string) {
-  const metaTag = document.querySelector(`meta[name="${name}"]`) as HTMLMetaElement
-  return metaTag?.content
-}
-
 export function sendEvent({ type, version = '1.0.0', ...props }: SendEventProps) {
-  let site_language = location.pathname.split('/')[1]
-  if (location.pathname.startsWith('/playground')) {
-    site_language = 'en'
-  }
-
   const body = {
     _csrf: getCsrf(),
 
@@ -95,10 +85,7 @@ export function sendEvent({ type, version = '1.0.0', ...props }: SendEventProps)
       referrer: document.referrer,
       search: location.search,
       href: location.href,
-      site_language,
-      page_document_type: getMetaContent('page-document-type'),
-      page_type: getMetaContent('page-type'),
-      status: Number(getMetaContent('status') || 0),
+      site_language: location.pathname.split('/')[1],
 
       // Device information
       // os, os_version, browser, browser_version:
@@ -220,18 +207,12 @@ function initExitEvent() {
   document.addEventListener('visibilitychange', sendExit)
 }
 
-function initPrintEvent() {
-  window.addEventListener('beforeprint', () => {
-    sendEvent({ type: EventType.print })
-  })
-}
-
 export default function initializeEvents() {
   initPageEvent() // must come first
   initExitEvent()
   initLinkEvent()
   initClipboardEvent()
-  initPrintEvent()
+  // print event in ./print.js
   // survey event in ./survey.js
   // experiment event in ./experiment.js
   // search event in ./search.js

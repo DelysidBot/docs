@@ -63,7 +63,6 @@ export const Survey = () => {
             hidden
             onChange={vote(ViewState.YES)}
             defaultChecked={state === ViewState.YES}
-            checked={state === ViewState.YES}
           />
           <label
             className={cx('btn mr-1', state === ViewState.YES && 'color-bg-info-inverse')}
@@ -83,7 +82,6 @@ export const Survey = () => {
             hidden
             onChange={vote(ViewState.NO)}
             defaultChecked={state === ViewState.NO}
-            checked={state === ViewState.NO}
           />
           <label
             className={cx('btn', state === ViewState.NO && 'color-bg-danger-inverse')}

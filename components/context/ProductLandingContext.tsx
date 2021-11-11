@@ -17,7 +17,6 @@ export type FeaturedLink = {
   authors?: Array<string>
   hideIntro?: boolean
   date?: string
-  fullTitle?: string
 }
 export type CodeExample = {
   title: string
@@ -89,7 +88,6 @@ export const getFeaturedLinksFromReq = (req: any): Record<string, Array<Featured
           title: entry.title,
           intro: entry.intro,
           authors: entry.page.authors || [],
-          fullTitle: entry.fullTitle,
         })),
       ]
     })
@@ -160,7 +158,6 @@ export const getProductLandingContextFromRequest = (req: any): ProductLandingCon
               title: link.title,
               intro: link.intro,
               authors: link.page.authors || [],
-              fullTitle: link.fullTitle,
             }
           }),
         }

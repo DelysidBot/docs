@@ -8,10 +8,7 @@ export const nextHandleRequest = nextApp.getRequestHandler()
 await nextApp.prepare()
 
 function renderPageWithNext(req, res, next) {
-  const isNextDataRequest = req.path.startsWith('/_next') && !req.path.startsWith('/_next/data')
-
-  // /playground is for playground static assets
-  if (isNextDataRequest || req.path.startsWith('/playground')) {
+  if (req.path.startsWith('/_next') && !req.path.startsWith('/_next/data')) {
     return nextHandleRequest(req, res)
   }
 

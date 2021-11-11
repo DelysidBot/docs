@@ -41,7 +41,7 @@ async function main() {
     .orderBy('name')
     .value()
 
-  const prInfoMatch = /^(?:gha-|ghd-)?(?<repo>docs(?:-internal)?)-(?<pullNumber>\d+)--.*$/
+  const prInfoMatch = /^(?<repo>docs(?:-internal)?)-(?<pullNumber>\d+)--.*$/
 
   const appsPlusPullIds = apps.map((app) => {
     const match = prInfoMatch.exec(app.name)
@@ -67,9 +67,8 @@ async function main() {
     const { isStale, isSpammy } = await assessPullRequest(awpi.repo, awpi.pullNumber)
 
     if (isSpammy) spammyCount++
-    if (isStale) staleCount++
-
-    if (isSpammy || isStale) {
+    if (isStale) {
+      staleCount++
       await deleteHerokuApp(awpi.app.name)
     }
   }

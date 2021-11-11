@@ -2,19 +2,13 @@ import { DOMAttributes, ReactNode } from 'react'
 import cx from 'classnames'
 import styles from './Callout.module.scss'
 
-export type CalloutPropsT = {
+type Props = {
   dangerouslySetInnerHTML?: DOMAttributes<HTMLDivElement>['dangerouslySetInnerHTML']
   variant: 'success' | 'info' | 'warning'
   children?: ReactNode
   className?: string
 }
-
-export const Callout = ({
-  variant,
-  className,
-  dangerouslySetInnerHTML,
-  children,
-}: CalloutPropsT) => {
+export const Callout = ({ variant, className, dangerouslySetInnerHTML, children }: Props) => {
   return (
     <div
       data-testid="callout"

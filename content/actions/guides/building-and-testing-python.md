@@ -10,7 +10,6 @@ versions:
   ghes: '*'
   ghae: '*'
 type: tutorial
-hidden: true
 topics:
   - CI
   - Python
@@ -350,9 +349,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
-      - name: Install tox and any other packages
+      - name: Install Tox and any other packages
         run: pip install tox
-      - name: Run tox
+      - name: Run Tox
         # Run tox using the version of Python in `PATH`
         run: tox -e py
 ```

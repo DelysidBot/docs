@@ -11,7 +11,7 @@ versions:
   fpt: '*'
 topics:
   - Enterprise
-shortTitle: Configure SAML with Okta
+shortTitle: Configure SAML SSO
 ---
 {% data reusables.enterprise-accounts.user-provisioning-release-stage %}
 

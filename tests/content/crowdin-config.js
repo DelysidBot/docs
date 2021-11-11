@@ -1,6 +1,5 @@
 import CrowdinConfig from '../helpers/crowdin-config.js'
 import { loadPages } from '../../lib/page-data.js'
-import { isExperimental } from '../helpers/is-experimental.js'
 import { jest } from '@jest/globals'
 
 const config = CrowdinConfig.read()
@@ -28,9 +27,7 @@ describe('crowdin.yml config file', () => {
 
   test('ignores all hidden pages', async () => {
     const hiddenPages = pages
-      .filter(
-        (page) => page.hidden && page.languageCode === 'en' && !isExperimental(page.relativePath)
-      )
+      .filter((page) => page.hidden && page.languageCode === 'en')
       .map((page) => `/content/${page.relativePath}`)
     const overlooked = hiddenPages.filter((page) => !isIgnored(page, ignoredPagePaths))
     const message = `Found some hidden pages that are not yet excluded from localization.
